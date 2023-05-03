@@ -13,12 +13,21 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "4469fa13-f336-4b68-8115-b9163de14cd8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "2D Vector",
-                    "id": "cbf87de9-e55c-46c9-92a6-18c730c0a607",
+                    "name": "PC",
+                    "id": "f3b8a772-1219-452e-8c2c-6ccb72564e63",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -29,7 +38,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "f0cc4f71-ffdb-4a43-8b90-1431a8f610ef",
+                    "id": "c1e3dd31-68ce-4662-90bf-26f033600512",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -40,7 +49,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "4802e2a7-09c8-4cc1-b4fb-55fa00b2eaf4",
+                    "id": "346ade32-be24-455b-ab8a-bbf6b2b23ff7",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -51,7 +60,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "d0aab7bb-3930-48a1-a389-1f5c9a7c8df3",
+                    "id": "ae60419c-02ae-49da-9771-cd6475d968ca",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -62,7 +71,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "286ee4a2-e896-4fb3-9278-9d58a1bb1ae3",
+                    "id": "3f12f05c-6df9-4514-829e-caa05cdb9b2e",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -73,12 +82,12 @@
                 },
                 {
                     "name": "",
-                    "id": "c6a8a652-81e4-49f4-aa56-51f61f1a76d4",
-                    "path": "",
+                    "id": "d128fb5d-3db1-4907-8bdd-7d9f3dc0f70a",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
