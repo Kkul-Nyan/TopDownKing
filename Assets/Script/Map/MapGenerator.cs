@@ -25,12 +25,17 @@ public class MapGenerator : MonoBehaviour
 
     void GenerateMap()
     {
+        GameManager.instance.mapTileScale = objectScale;
+        GameManager.instance.mapSizeX = mapSizeX * objectScale;
+        GameManager.instance.mapSizeZ = mapSizeZ * objectScale;
         for (int x = 0; x < mapSizeX; x++)
         {
             for (int z = 0; z < mapSizeZ; z++)
             {
                 Vector3Int tilePosition = new Vector3Int(x * objectScale, positionY, z * objectScale);
-                Instantiate(mapTile, tilePosition, Quaternion.identity);
+                GameObject floor = Instantiate(mapTile, tilePosition, Quaternion.identity);
+                Renderer renderer = floor.GetComponent<Renderer>();
+                renderer.material.mainTextureOffset = new Vector2(x * objectScale, z * objectScale);
             }
         }
     }
@@ -61,19 +66,24 @@ public class MapGenerator : MonoBehaviour
             
             int selectRandomObject = Random.Range(0, objects.Length);
             int randomPositinX = Random.Range(objectScale, (mapSizeX - 1) * objectScale); 
-            int randomPositinZ = Random.Range(objectScale, (mapSizeZ - 1) * objectScale); 
-            Vector3 randomPosition = new Vector3(randomPositinX, 1, randomPositinZ);
+            int randomPositinZ = Random.Range(objectScale, (mapSizeZ - 1) * objectScale);
+            Vector3 randomPosition = new Vector3(0,0,0);
+
+            if(objects[selectRandomObject].gameObject.CompareTag("Ground")){
+                randomPosition = new Vector3(randomPositinX, Mathf.Abs(positionY * objectScale) - 1f, randomPositinZ);
+            } 
+            else{
+                randomPosition = new Vector3(randomPositinX, -1f, randomPositinZ);
+            }
 
             foreach(Vector3 pos in bannedPosition){
                 if(pos == randomPosition){
-                    isOverlap = true;
+                    ObjectGenerator();
                 }
             }
 
-            if(!isOverlap){
-                Instantiate(objects[selectRandomObject], randomPosition, Quaternion.identity);
-            }
-        
+            GameObject mapobject = Instantiate(objects[selectRandomObject], randomPosition, Quaternion.identity);
+
             bannedPosition[i] = randomPosition;
             isOverlap = false;
         }

@@ -3,10 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStatus : MonoBehaviour
+public class PlayerStatus : MonoBehaviour, IDamagable
 {
     public Status health;
     public Status mana;
+
+    private void Update() {
+        statusUpdate();
+    }
+
+    void statusUpdate(){
+        CheckisPlayerDead();
+
+        mana.Add(mana.regenRate * Time.deltaTime);
+
+        health.uiBar.fillAmount = health.GetPercent();
+        mana.uiBar.fillAmount = mana.GetPercent();
+    }
+
+    public void CheckisPlayerDead(){
+        if(health.curValue == 0f){
+            Die();
+        }
+    }
+    public void TakePhysicalDamage(int amount){
+        health.Subtract(amount);
+        //onTakeDamage?.Invoke();
+    }
+
+    void Die(){
+        Debug.Log( GameManager.instance.userName + "Die");
+    }
+
 }
 
 [System.Serializable]
@@ -30,4 +58,10 @@ public class Status
     public float GetPercent(){
         return curValue / maxValue;
     }
+    
+}
+
+public interface IDamagable 
+{
+    void TakePhysicalDamage(int damageAmount);
 }

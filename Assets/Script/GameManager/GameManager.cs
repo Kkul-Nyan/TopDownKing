@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public int mapSizeX;
+    public int mapSizeZ;
+    public int mapTileScale;
+    
     public string userName;
 
     public static GameManager instance;
