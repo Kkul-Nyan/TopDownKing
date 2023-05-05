@@ -12,21 +12,16 @@ public class mapObject : MonoBehaviour, IDamagable
 
     private void Start() {
         renderer = GetComponent<Renderer>();
-        startColor = renderer.material.color;
-        
+        startColor = renderer.material.color; 
     }
 
-    private void LateUpdate() {
-        HitColor();  
+    private void Update() {
+        CheckDestroy();
+        HitColor(); 
     }
+
     public void TakePhysicalDamage(int amount){
-        if(curhealth <= 0){
-            Die();
-            
-        }
-        else{
-            curhealth -= amount;
-        }
+        curhealth -= amount;
     }
 
     void Die(){
@@ -36,6 +31,12 @@ public class mapObject : MonoBehaviour, IDamagable
     void HitColor(){
         float  t = (float)(maxHealth - curhealth) / (float)maxHealth;
         renderer.material.color = Color.Lerp(startColor, destroyColor, t);
-        
     }
+
+    void CheckDestroy(){
+        if( curhealth <= 0){
+            Destroy(transform.gameObject);
+        }
+    }
+
 }

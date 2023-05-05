@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullets : MonoBehaviour
 {
     public float speed;
+    public int Damage = 50;
     Rigidbody rig;
     float limitTime = 1;
     private void Start() {
@@ -26,8 +27,8 @@ public class Bullets : MonoBehaviour
     
     private void OnCollisionEnter(Collision other) {
         var ob = other.transform.gameObject.GetComponent<IDamagable>();
-        if(  ob!= null)
-            ob.TakePhysicalDamage(50);
+        if(  ob != null)
+            ob.TakePhysicalDamage(Damage);
 
         Destroy(transform.gameObject);
     }
