@@ -774,37 +774,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &802923282
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 802923283}
-  m_Layer: 0
-  m_Name: ShootPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &802923283
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 802923282}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.104, y: 0.587, z: 1.189}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 168817019}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2083,41 +2052,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5390480984734266631, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5390480984734266631, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5390480984734266631, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 841186622}
-    - target: {fileID: 5390480984734266631, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5390480984734266631, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnAttackInput
-      objectReference: {fileID: 0}
-    - target: {fileID: 5390480984734266631, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5390480984734266631, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 6079373682661744426, guid: 8cd0ed45d01974a6bab7ddf27356d290,
         type: 3}
       propertyPath: mana.uiBar
@@ -2128,21 +2062,6 @@ PrefabInstance:
       propertyPath: health.uiBar
       value: 
       objectReference: {fileID: 1529257099}
-    - target: {fileID: 6079373682661744426, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: mana.curValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6079373682661744426, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: mana.regenRate
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6079373682661744426, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: mana.startValue
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6079373682661744427, guid: 8cd0ed45d01974a6bab7ddf27356d290,
         type: 3}
       propertyPath: m_RootOrder
@@ -2203,32 +2122,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8226789231576078359, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: shootPower
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8226789231576078359, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: rotationSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8226789231576078359, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: shootPosition
-      value: 
-      objectReference: {fileID: 802923283}
-    - target: {fileID: 8226789231576078359, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: bullets.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8226789231576078359, guid: 8cd0ed45d01974a6bab7ddf27356d290,
-        type: 3}
-      propertyPath: bullets.Array.data[0]
-      value: 
-      objectReference: {fileID: 3060060178206328335, guid: c27d4c815b7a54e82af7f067e2cdb39d,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd0ed45d01974a6bab7ddf27356d290, type: 3}
 --- !u!1001 &1239370216131332921

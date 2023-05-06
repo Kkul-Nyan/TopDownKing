@@ -23,6 +23,7 @@ public class MapGenerator : MonoBehaviour
         ObjectGenerator();
     }
 
+    //맵타일을 제작하는 부분입니다.
     void GenerateMap()
     {
         GameManager.instance.mapTileScale = objectScale;
@@ -40,6 +41,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    //맵타일 주변 테두리 오브젝트를 만들어줍니다.
     void GenerateEdge(){
         for(int x = 0; x < mapSizeX; x++){
             Vector3 edgePosition = new Vector3(x * objectScale, Mathf.Abs(positionY * objectScale) - 1f, (mapSizeZ - 1) * objectScale);
@@ -59,14 +61,15 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    //맵내부 오브젝트를 제작하는 부분입니다.
     void ObjectGenerator(){
         int totalObject = Random.Range(minObjects, maxObjects + 1);
         Vector3[] bannedPosition = new Vector3[totalObject];
         for(int i = 0; i < totalObject; i++){
             
             int selectRandomObject = Random.Range(0, objects.Length);
-            int randomPositinX = Random.Range(objectScale, (mapSizeX - 1) * objectScale); 
-            int randomPositinZ = Random.Range(objectScale, (mapSizeZ - 1) * objectScale);
+            int randomPositinX = Random.Range(objectScale, (mapSizeX - 2) * objectScale); 
+            int randomPositinZ = Random.Range(objectScale, (mapSizeZ - 2) * objectScale);
             Vector3 randomPosition = new Vector3(0,0,0);
 
             if(objects[selectRandomObject].gameObject.CompareTag("Ground")){
