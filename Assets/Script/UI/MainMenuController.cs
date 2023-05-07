@@ -16,6 +16,10 @@ public class MainMenuController : MonoBehaviour
         mainMenuCanvas.gameObject.SetActive(false);
         gameMenuCanvas.gameObject.SetActive(true);
     }
+
+    public void OnSingInWithEmail(){
+        
+    }
     
     //메뉴 캔버스 꺼두고, 옵션 캔버스를 켭니다. 
     public void OnOptionButton(){
