@@ -51,11 +51,13 @@ public class MainMenuController : MonoBehaviour
     }
     
     public void OnCharactorButton(){
-
+        charctorCanvas.gameObject.SetActive(true);
+        lobbieCanvas.gameObject.SetActive(false);
     }
 
     public void OnCancerCharactorButton(){
-
+        charctorCanvas.gameObject.SetActive(false);
+        lobbieCanvas.gameObject.SetActive(true);
     }
 
     //1번게임 씬 로드합니다.
@@ -74,7 +76,7 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void OnRightChageButton(){
-        if(charactorSelectNumber == charactorSprites.Length){
+        if(charactorSelectNumber == charactorSprites.Length - 1){
             return;
         }
 
@@ -91,11 +93,10 @@ public class MainMenuController : MonoBehaviour
         ChangeImage();
     }
 
-    public void SelectCharactorButton(){
+    public void OnSelectCharactorButton(){
 
     }
 
     void ChangeImage() => charactorImage.sprite = charactorSprites[charactorSelectNumber];
-
 
 }
