@@ -15,13 +15,14 @@ public class PlayFabManager : MonoBehaviour
     public TMP_InputField registerEmailInput;
     public TMP_InputField registerPasswordInput;
 
+    public Canvas loginUI;
     public Canvas loginCanvas;
     public Canvas signCanvas;
     public Canvas mainMenuCanvas;
     public CanvasGroup failCanvas;
-    public TextMeshProUGUI fadeText;
 
-    public string username = "";
+    public TextMeshProUGUI playerNameText;
+
 
 
     float timer;
@@ -48,7 +49,7 @@ public class PlayFabManager : MonoBehaviour
     // 로그인요청이 승인된다면 작동합니다. 
     private void OnLoginSuccess(LoginResult result)
     {
-        loginCanvas.gameObject.SetActive(false);
+        loginUI.gameObject.SetActive(false);
         mainMenuCanvas.gameObject.SetActive(true);
         
         // 플레이팹에서 플레이어 프로필 정보를 가져옵니다. 여기서는 닉네임에 사용할 username을 가져옵니다.
@@ -59,7 +60,10 @@ public class PlayFabManager : MonoBehaviour
             }
         },
         //정보를 가져오는데 성공했다면, 싱글톤인 게임매니저에 정보를 전달합니다.
-        result => GameManager.instance.userName = result.PlayerProfile.DisplayName,
+        result => {
+            GameManager.instance.userName = result.PlayerProfile.DisplayName;
+            playerNameText.text = GameManager.instance.userName;
+            },
         error => Debug.LogError(error.GenerateErrorReport()));
     }
    
