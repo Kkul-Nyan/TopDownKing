@@ -10,7 +10,7 @@ public class PlayerCharactor : MonoBehaviour
     public GameObject[] headObject;
 
     private void Start() {
-        ChooseCharactor();
+        Invoke("ChooseCharactor",0.1f);
     }
 
     [Button]

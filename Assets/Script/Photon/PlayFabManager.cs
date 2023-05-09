@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.UI;
@@ -15,15 +16,12 @@ public class PlayFabManager : MonoBehaviour
     public TMP_InputField registerEmailInput;
     public TMP_InputField registerPasswordInput;
 
-    public Canvas loginUI;
-    public Canvas loginCanvas;
-    public Canvas signCanvas;
-    public Canvas mainMenuCanvas;
     public TextMeshProUGUI coinText;
     public CanvasGroup failCanvas;
     public Canvas successCoinCanvas;
 
     public TextMeshProUGUI playerNameText;
+    public LoginMenuController loginMenuController;
 
 
 
@@ -34,7 +32,7 @@ public class PlayFabManager : MonoBehaviour
         if( isfade == true){
             FadeOutCanvas();
         }
-        CheckCoin();
+        //CheckCoin();
     }
     void CheckCoin() => coinText.text = GameManager.instance.userCoin.ToString();
 
@@ -53,9 +51,6 @@ public class PlayFabManager : MonoBehaviour
     // 로그인요청이 승인된다면 작동합니다. 
     private void OnLoginSuccess(LoginResult result)
     {
-        loginUI.gameObject.SetActive(false);
-        mainMenuCanvas.gameObject.SetActive(true);
-        
         // 플레이팹에서 플레이어 프로필 정보를 가져옵니다. 여기서는 닉네임에 사용할 username을 가져옵니다.
         PlayFabClientAPI.GetPlayerProfile( new GetPlayerProfileRequest() {
             PlayFabId = result.PlayFabId, 
@@ -71,6 +66,7 @@ public class PlayFabManager : MonoBehaviour
         error => Debug.LogError(error.GenerateErrorReport()));
 
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) => GameManager.instance.userCoin = result.VirtualCurrency["CO"], (error) => Debug.Log("Failed Check Coin"));
+        SceneManager.LoadScene("Main");
     }
    
    // 로그인이 실패시 로그인을 다시 시도하라는 캔버스를 작동시킵니다.
@@ -95,8 +91,8 @@ public class PlayFabManager : MonoBehaviour
     }
     //회원가입에 성공하면 기존 로그인 캔버스를 가져옵니다.
     void OnRegisterSuccess(RegisterPlayFabUserResult result){
-        signCanvas.gameObject.SetActive(false);
-        loginCanvas.gameObject.SetActive(true);
+        loginMenuController.status = LoadingStatus.Main;
+        loginMenuController.IsStatus();
     }
     //회원가입에 실패시 실패캔버스를 작동시킵니다.
     void OnRegisterFailure(PlayFabError error){

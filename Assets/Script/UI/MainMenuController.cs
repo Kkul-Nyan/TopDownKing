@@ -31,28 +31,6 @@ public class MainMenuController : MonoBehaviour
         
     }
 
-    public void OnLogInWithGoogle(){
-        
-    }
-
-    //ID로그인을 취소하고 로그인 메인화면캔버스를 켭니다.
-    public void OnCancerIDLogin(){
-        IDLoginCanvas.gameObject.SetActive(false);
-        loginCanvas.gameObject.SetActive(true);
-    }
-
-    //회원가입 캔버스를 켜줍니다.
-    public void OnRegisterButton(){
-        signCanvas.gameObject.SetActive(true);
-        loginCanvas.gameObject.SetActive(false);
-    }
-
-    //회원가입 캔버스를 끄고, 로그인캔버스를 켜줍니다.
-    public void OnRegisterCancerButton(){
-        signCanvas.gameObject.SetActive(false);
-        loginCanvas.gameObject.SetActive(true);
-    }
-
     //게임스타트버튼을 눌렸을때, 게임선택캔버스를 켜줍니다.
     public void OnStartButton(){
         startGameCanvas.gameObject.SetActive(true);
