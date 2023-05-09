@@ -19,7 +19,9 @@ public class PlayFabManager : MonoBehaviour
     public Canvas loginCanvas;
     public Canvas signCanvas;
     public Canvas mainMenuCanvas;
+    public TextMeshProUGUI coinText;
     public CanvasGroup failCanvas;
+    public Canvas successCoinCanvas;
 
     public TextMeshProUGUI playerNameText;
 
@@ -32,7 +34,9 @@ public class PlayFabManager : MonoBehaviour
         if( isfade == true){
             FadeOutCanvas();
         }
+        CheckCoin();
     }
+    void CheckCoin() => coinText.text = GameManager.instance.userCoin.ToString();
 
     //아이디, 비밀번호를 inputfield에 넣고 로그인 버튼 클릭시, Playfab에 로그인 요청을 합니다.
     public void OnLoginButton()
@@ -54,9 +58,9 @@ public class PlayFabManager : MonoBehaviour
         
         // 플레이팹에서 플레이어 프로필 정보를 가져옵니다. 여기서는 닉네임에 사용할 username을 가져옵니다.
         PlayFabClientAPI.GetPlayerProfile( new GetPlayerProfileRequest() {
-        PlayFabId = result.PlayFabId,
-            ProfileConstraints = new PlayerProfileViewConstraints() {
-                ShowDisplayName = true
+            PlayFabId = result.PlayFabId, 
+                ProfileConstraints = new PlayerProfileViewConstraints() {
+                    ShowDisplayName = true
             }
         },
         //정보를 가져오는데 성공했다면, 싱글톤인 게임매니저에 정보를 전달합니다.
@@ -65,6 +69,8 @@ public class PlayFabManager : MonoBehaviour
             playerNameText.text = GameManager.instance.userName;
             },
         error => Debug.LogError(error.GenerateErrorReport()));
+
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) => GameManager.instance.userCoin = result.VirtualCurrency["CO"], (error) => Debug.Log("Failed Check Coin"));
     }
    
    // 로그인이 실패시 로그인을 다시 시도하라는 캔버스를 작동시킵니다.
@@ -97,5 +103,21 @@ public class PlayFabManager : MonoBehaviour
         failCanvas.gameObject.SetActive(true);
         isfade = true;
     }
-    
+
+    public void AddCoin(int amount){
+        var request = new AddUserVirtualCurrencyRequest(){ VirtualCurrency = "CO", Amount = amount};
+        PlayFabClientAPI.AddUserVirtualCurrency(request, (result) => {
+            GameManager.instance.userCoin = result.Balance;
+            successCoinCanvas.gameObject.SetActive(true);
+        },
+        (error) => Debug.Log("Coin Add Failed"));
+        
+    }
+
+    public void SubtractCoin(int amount)
+    {
+        var request = new SubtractUserVirtualCurrencyRequest(){VirtualCurrency = "CO", Amount = amount};
+        PlayFabClientAPI.SubtractUserVirtualCurrency(request,(result) => GameManager.instance.userCoin = result.Balance, (error) => Debug.Log("Coin Subtract Failed"));
+        
+    }
 }

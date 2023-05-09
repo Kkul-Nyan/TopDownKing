@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public int mapSizeX;
     public int mapSizeZ;
     public int mapTileScale;
+    public int charactorSelectNumber = 0;
+    public int userCoin;
     
     public string userName;
 

@@ -12,10 +12,12 @@ public class MainMenuController : MonoBehaviour
     public Canvas startGameCanvas;
     public Canvas lobbieCanvas;
     public Canvas charctorCanvas;
-
+    public Canvas shopCanvas;
+    public Canvas successCoinCanvas;
     public Image charactorImage;
     public Sprite[] charactorSprites;
-    int charactorSelectNumber;
+    public int charactorSelectNumber;
+    public PlayerCharactor game;
 
 
     //메뉴 캔버스 꺼두고, 게임 캔버스를 켭니다. 
@@ -32,38 +34,48 @@ public class MainMenuController : MonoBehaviour
     public void OnLogInWithGoogle(){
         
     }
+
+    //ID로그인을 취소하고 로그인 메인화면캔버스를 켭니다.
     public void OnCancerIDLogin(){
         IDLoginCanvas.gameObject.SetActive(false);
         loginCanvas.gameObject.SetActive(true);
     }
+
+    //회원가입 캔버스를 켜줍니다.
     public void OnRegisterButton(){
         signCanvas.gameObject.SetActive(true);
         loginCanvas.gameObject.SetActive(false);
     }
+
+    //회원가입 캔버스를 끄고, 로그인캔버스를 켜줍니다.
     public void OnRegisterCancerButton(){
         signCanvas.gameObject.SetActive(false);
         loginCanvas.gameObject.SetActive(true);
     }
 
+    //게임스타트버튼을 눌렸을때, 게임선택캔버스를 켜줍니다.
     public void OnStartButton(){
         startGameCanvas.gameObject.SetActive(true);
         lobbieCanvas.gameObject.SetActive(false);
     }
     
+    //캐릭터 선택 캔버스를 켜줍니다.
     public void OnCharactorButton(){
         charctorCanvas.gameObject.SetActive(true);
         lobbieCanvas.gameObject.SetActive(false);
+        charactorSelectNumber = GameManager.instance.charactorSelectNumber;
     }
-
+    // 캐릭터 선택을 취소하고 로비캔버스를 켜줍니다.
     public void OnCancerCharactorButton(){
         charctorCanvas.gameObject.SetActive(false);
         lobbieCanvas.gameObject.SetActive(true);
     }
 
-    //1번게임 씬 로드합니다.
+    //1번게임 배틀로얄모드게임씬으로 로드합니다.
     public void OnBattleRoyaleMode(){
         SceneManager.LoadScene(1);
     }
+    //게임선택캔버스를 취소하고, 로비캔버스를 켜줍니다.
     public void OnCancerStart(){
         startGameCanvas.gameObject.SetActive(false);
         lobbieCanvas.gameObject.SetActive(true);
@@ -75,6 +87,7 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
+    //캐릭터선택창에서 오른쪽이동버튼입니다.
     public void OnRightChageButton(){
         if(charactorSelectNumber == charactorSprites.Length - 1){
             return;
@@ -83,7 +96,7 @@ public class MainMenuController : MonoBehaviour
         charactorSelectNumber += 1;
         ChangeImage();
     }
-
+    //캐릭터선택창에서 왼쪽이동버튼입니다.
     public void OnLeftChangeButton(){
         if(charactorSelectNumber == 0){
             return;
@@ -93,10 +106,27 @@ public class MainMenuController : MonoBehaviour
         ChangeImage();
     }
 
+    //선택한 캐릭터를 게임매니저에 정보를 넘겨주고, 캐릭터선택캔버스을 꺼주고, 로비캔버스를 열어줍니다.
     public void OnSelectCharactorButton(){
+        GameManager.instance.charactorSelectNumber = charactorSelectNumber;
+        charctorCanvas.gameObject.SetActive(false);
+        lobbieCanvas.gameObject.SetActive(true);
+        game.ChooseCharactor();
 
     }
-
+    //캐릭터선택캔버스에서 이미지스프라이트를 변경해줍니다.
     void ChangeImage() => charactorImage.sprite = charactorSprites[charactorSelectNumber];
 
+    public void OnShopButton(){
+        shopCanvas.gameObject.SetActive(true);
+        lobbieCanvas.gameObject.SetActive(false);
+    }
+
+    public void OnCancerShopButton(){
+        shopCanvas.gameObject.SetActive(false);
+        lobbieCanvas.gameObject.SetActive(true);
+    }
+    public void OnBuyCheckButton(){
+        successCoinCanvas.gameObject.SetActive(false);
+    }
 }
