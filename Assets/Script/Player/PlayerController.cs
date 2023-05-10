@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,19 +15,23 @@ public class PlayerController : MonoBehaviour
     Rigidbody rig;
     Vector2 moveVec;
     public Transform shootPosition;
-
-
+    PhotonView pv;
     public GameObject[] bullets;
 
+    private void Awake() {
+        pv = GetComponent<PhotonView>();
+    }
     private void Start() {
-        rig = GetComponent<Rigidbody>();
-        Invoke("RandomPosition",0.1f);
-        
-        
+        if(pv.IsMine){
+            rig = GetComponent<Rigidbody>();
+            Invoke("RandomPosition",0.1f);
+        }        
     }
 
     private void LateUpdate() {
-        Move();
+        if(pv.IsMine){
+            Move();
+        }
     }
 
     void RandomPosition(){

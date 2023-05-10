@@ -36,6 +36,7 @@ public class MainMenuController : MonoBehaviour
     public Slider soundSilder;
     public TextMeshProUGUI soundText;
     public float soundSize = 1;
+    public NetworkManager networkManager;
 
 
 
@@ -102,7 +103,7 @@ public class MainMenuController : MonoBehaviour
       
     //1번게임 배틀로얄모드게임씬으로 로드합니다.
     public void OnBattleRoyaleMode(){
-        SceneManager.LoadScene("Game");
+        networkManager.JoinorCreateRoom();
     }
 
     //2번게임 씬 로드합니다.

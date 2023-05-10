@@ -4274,6 +4274,7 @@ MonoBehaviour:
   soundSilder: {fileID: 1721272611}
   soundText: {fileID: 1688284545}
   soundSize: 1
+  networkManager: {fileID: 304016992}
 --- !u!1 &811933183
 GameObject:
   m_ObjectHideFlags: 0
@@ -7291,7 +7292,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8193,7 +8194,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -8390,8 +8391,8 @@ RectTransform:
   m_Father: {fileID: 811933184}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9181,6 +9182,7 @@ MonoBehaviour:
   coinText: {fileID: 554751580}
   failCanvas: {fileID: 0}
   successCoinCanvas: {fileID: 694674956}
+  joinButton: {fileID: 0}
   loginMenuController: {fileID: 0}
 --- !u!4 &1913084889
 Transform:
@@ -9284,6 +9286,18 @@ MonoBehaviour:
       - m_Target: {fileID: 808571485}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
         m_MethodName: OnBattleRoyaleMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 304016992}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: OnConnectedToMaster
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

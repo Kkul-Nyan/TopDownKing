@@ -1,19 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class PlayerCharactor : MonoBehaviour
+public class PlayerCharactor : MonoBehaviourPunCallbacks
 {
     public int charactorSelectNumber;
     public GameObject[] bodyObject;
     public GameObject[] headObject;
 
+    PhotonView pv;
+
+    private void Awake() {
+        pv = GetComponent<PhotonView>();
+    }
     private void Start() {
-        Invoke("ChooseCharactor",0.1f);
+        if(pv.IsMine){
+            Invoke("ChooseCharactor",0.1f);
+        }
     }
 
-    [Button]
     public void ChooseCharactor(){
         charactorSelectNumber = GameManager.instance.charactorSelectNumber;
         for(int i = 0; i < bodyObject.Length; i++){

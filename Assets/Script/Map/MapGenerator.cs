@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class MapGenerator : MonoBehaviour
+
+public class MapGenerator : MonoBehaviourPunCallbacks
 {
 
     public GameObject mapTile;
@@ -16,11 +19,16 @@ public class MapGenerator : MonoBehaviour
     
     public bool isOverlap = false;
 
+    private void Awake() {
+        
+    }
     void Start()
     {
-        GenerateMap();
-        GenerateEdge();
-        ObjectGenerator();
+        if(PhotonNetwork.IsMasterClient){
+            GenerateMap();
+            GenerateEdge();
+            ObjectGenerator();
+        }
     }
 
     //맵타일을 제작하는 부분입니다.

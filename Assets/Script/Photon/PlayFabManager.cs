@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using PlayFab;
 using PlayFab.ClientModels;
-using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
+using UnityEngine.UI;
+using Photon.Realtime;
 
-public class PlayFabManager : MonoBehaviour
+public class PlayFabManager : MonoBehaviourPunCallbacks
 {
     public TMP_InputField loginEmailInput;
     public TMP_InputField loginPasswoadInput;
@@ -19,6 +21,8 @@ public class PlayFabManager : MonoBehaviour
     public TextMeshProUGUI coinText;
     public CanvasGroup failCanvas;
     public Canvas successCoinCanvas;
+
+    public Button joinButton;
 
     public LoginMenuController loginMenuController;
 
@@ -36,6 +40,7 @@ public class PlayFabManager : MonoBehaviour
     //아이디, 비밀번호를 inputfield에 넣고 로그인 버튼 클릭시, Playfab에 로그인 요청을 합니다.
     public void OnLoginButton()
     {
+        joinButton.interactable = false;
         var request = new LoginWithEmailAddressRequest {Email = loginEmailInput.text, Password = loginPasswoadInput.text};
         PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
     }
@@ -58,17 +63,29 @@ public class PlayFabManager : MonoBehaviour
         //정보를 가져오는데 성공했다면, 싱글톤인 게임매니저에 정보를 전달합니다.
         result => {
             GameManager.instance.userName = result.PlayerProfile.DisplayName.ToString();
-            Debug.Log(result.PlayerProfile.DisplayName);
             },
         error => Debug.LogError(error.GenerateErrorReport()));
 
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) => GameManager.instance.userCoin = result.VirtualCurrency["CO"], (error) => Debug.Log("Failed Check Coin"));
+        //플레이팹 기본적인 정보를 받은 다음, 포톤 서버접속 시도
+        PhotonNetwork.ConnectUsingSettings();
+        joinButton.interactable = true;
+    }
+    
+    //포톤서버 접속 성공시 메인씬이동합니다.
+    public override void OnConnectedToMaster() {
         SceneManager.LoadScene("Main");
+    }
+    //포톤 접속 종료시 로그인씬으로 이동합니다
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        SceneManager.LoadScene(0);
     }
    
    // 로그인이 실패시 로그인을 다시 시도하라는 캔버스를 작동시킵니다.
     private void OnLoginFailure(PlayFabError error)
     {
+        joinButton.interactable = true;
         failCanvas.gameObject.SetActive(true);
         isfade = true;
         
