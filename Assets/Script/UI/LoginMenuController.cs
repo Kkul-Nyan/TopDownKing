@@ -22,9 +22,6 @@ public class LoginMenuController : MonoBehaviour
         IsStatus();
     }
 
-    private void Update() {
-        //IsStatus();
-    }
     public void IsStatus(){
         Reset();
         switch (status){

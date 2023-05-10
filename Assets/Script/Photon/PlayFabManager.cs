@@ -20,7 +20,6 @@ public class PlayFabManager : MonoBehaviour
     public CanvasGroup failCanvas;
     public Canvas successCoinCanvas;
 
-    public TextMeshProUGUI playerNameText;
     public LoginMenuController loginMenuController;
 
 
@@ -32,9 +31,7 @@ public class PlayFabManager : MonoBehaviour
         if( isfade == true){
             FadeOutCanvas();
         }
-        //CheckCoin();
     }
-    void CheckCoin() => coinText.text = GameManager.instance.userCoin.ToString();
 
     //아이디, 비밀번호를 inputfield에 넣고 로그인 버튼 클릭시, Playfab에 로그인 요청을 합니다.
     public void OnLoginButton()
@@ -60,8 +57,8 @@ public class PlayFabManager : MonoBehaviour
         },
         //정보를 가져오는데 성공했다면, 싱글톤인 게임매니저에 정보를 전달합니다.
         result => {
-            GameManager.instance.userName = result.PlayerProfile.DisplayName;
-            playerNameText.text = GameManager.instance.userName;
+            GameManager.instance.userName = result.PlayerProfile.DisplayName.ToString();
+            Debug.Log(result.PlayerProfile.DisplayName);
             },
         error => Debug.LogError(error.GenerateErrorReport()));
 

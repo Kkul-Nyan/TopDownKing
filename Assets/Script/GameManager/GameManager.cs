@@ -9,15 +9,26 @@ public class GameManager : MonoBehaviour
     public int mapTileScale;
     public int charactorSelectNumber = 0;
     public int userCoin;
+    public float soundSize;
     
     public string userName;
+    public bool isMute = false;
 
     public static GameManager instance;
     private void Awake() {
-        if(instance != null){
-            Destroy(this.gameObject);
+        if(instance == null){
+            instance = this;
+            DontDestroyOnLoad(instance);
+            return;
         }
-        instance = this;
-        DontDestroyOnLoad(instance);
+        Destroy(this.gameObject);
+    }
+
+    public void SoundChange(){
+        AudioListener.volume = soundSize;
+    }
+
+    public void MuteSound(){
+        AudioListener.pause = isMute;
     }
 }
