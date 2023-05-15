@@ -37,10 +37,12 @@ public class MainMenuController : MonoBehaviour
     public TextMeshProUGUI soundText;
     public float soundSize = 1;
     public NetworkManager networkManager;
+    AudioSource audioSource;
 
 
 
     private void Start() {
+        audioSource = GetComponent<AudioSource>();
         Invoke("CheckBasic",1f);
     }
     public void IsStatus(){
@@ -48,19 +50,24 @@ public class MainMenuController : MonoBehaviour
         switch (status){
             case UIStatus.Main : 
                 mainCanvas.gameObject.SetActive(true);
+                audioSource.Play();
             break;
             case UIStatus.StartGame : 
                 startGameCanvas.gameObject.SetActive(true);
+                audioSource.Play();
             break;
             case UIStatus.CharactorSelect :
                 charctorCanvas.gameObject.SetActive(true);
                 charactorSelectNumber = GameManager.instance.charactorSelectNumber;
+                audioSource.Play();
             break;
             case UIStatus.Shop :
                 shopCanvas.gameObject.SetActive(true);
+                audioSource.Play();
             break;
             case UIStatus.Option :
                 optionCanvas.gameObject.SetActive(true);
+                audioSource.Play();
             break;
         }
     }
@@ -137,14 +144,17 @@ public class MainMenuController : MonoBehaviour
         OnButtonControll(0);
     }
 
+    //코인을 얻고나면 구매에 성공햇다는 의미로 띄우는 UI창을 종료합니다.
     public void OnSuccessCoinButton(){
         successCoinCanvas.gameObject.SetActive(false);
         CheckBasic();
     }
 
+    //슬라이더를 조정하면 바로 게임사운드를 조정합니다.
+    //사운드가 0이되면 스프라이트를 자동으로 무음스프라이트로 교체하고 0이상이되면 다시 유음 스프라이트로 교체합니다.
     public void SoundValueCheck(){
         soundSize = soundSilder.value;
-        soundText.text = (soundSize * 100).ToString();
+        soundText.text = Mathf.Round((soundSize * 100)).ToString();
         GameManager.instance.soundSize = soundSize;
         if(soundSize == 0){
             GameManager.instance.isMute = true;
@@ -155,7 +165,7 @@ public class MainMenuController : MonoBehaviour
             soundImage.sprite = soundSprites[0];
         }
     }
-    
+    //음소거 버튼을 눌렸을때 사운드를 무음으로 만들어줍니다.
     public void OnMuteButton(){
         if(GameManager.instance.isMute == false){
             GameManager.instance.isMute = true;

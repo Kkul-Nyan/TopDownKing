@@ -14,11 +14,13 @@ public class LoginMenuController : MonoBehaviour
     public Canvas loginCanvas;
     public Canvas emailLoginCanvas;
     public Canvas singinEmailCanvas;
+    AudioSource audio;
     
     public LoadingStatus status;
    
     private void Start() {
         status = LoadingStatus.Main;
+        audio = GetComponent<AudioSource>();
         IsStatus();
     }
 
@@ -27,12 +29,16 @@ public class LoginMenuController : MonoBehaviour
         switch (status){
             case LoadingStatus.Main : 
                 loginCanvas.gameObject.SetActive(true);
+                audio.Play();
             break;
             case LoadingStatus.LoginEmail : 
                 emailLoginCanvas.gameObject.SetActive(true);
+                audio.Play();
+
             break;
             case LoadingStatus.SinginEmail :
                 singinEmailCanvas.gameObject.SetActive(true); 
+                audio.Play();
             break;
             
         }

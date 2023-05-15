@@ -22,9 +22,15 @@ public class PlayFabManager : MonoBehaviourPunCallbacks
     public CanvasGroup failCanvas;
     public Canvas successCoinCanvas;
 
+    public AudioSource mainAudioSource;
+    public AudioSource lobbyAudioSource;
+    public AudioClip getCoinSound;
+
     public Button joinButton;
 
     public LoginMenuController loginMenuController;
+    public AudioClip clickSound;
+
 
 
 
@@ -40,12 +46,14 @@ public class PlayFabManager : MonoBehaviourPunCallbacks
     //아이디, 비밀번호를 inputfield에 넣고 로그인 버튼 클릭시, Playfab에 로그인 요청을 합니다.
     public void OnLoginButton()
     {
+        lobbyAudioSource.Play();
         joinButton.interactable = false;
         var request = new LoginWithEmailAddressRequest {Email = loginEmailInput.text, Password = loginPasswoadInput.text};
         PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
     }
     //아이디, 비밀번호, 유저네임(닉네임)을 작성하고 회원가입버튼을 클릭시, Playfab에 Rigister요청을 합니다.
     public void RegisterButton(){
+        lobbyAudioSource.Play();
         var request = new RegisterPlayFabUserRequest {Email = registerEmailInput.text, Password = registerPasswordInput.text,Username = registerUserNameInput.text, DisplayName = registerUserNameInput.text};
         PlayFabClientAPI.RegisterPlayFabUser(request, OnRegisterSuccess, OnRegisterFailure);
     }
@@ -119,6 +127,8 @@ public class PlayFabManager : MonoBehaviourPunCallbacks
         PlayFabClientAPI.AddUserVirtualCurrency(request, (result) => {
             GameManager.instance.userCoin = result.Balance;
             successCoinCanvas.gameObject.SetActive(true);
+            mainAudioSource.clip = getCoinSound;
+            mainAudioSource.Play();
         },
         (error) => Debug.Log("Coin Add Failed"));
         
