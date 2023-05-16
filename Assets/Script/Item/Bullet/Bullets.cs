@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class Bullets : MonoBehaviour
+public class Bullets : MonoBehaviourPunCallbacks
 {
+    public PhotonView pv;
     public float speed;
     public int Damage = 50;
     Rigidbody rig;
@@ -21,7 +24,7 @@ public class Bullets : MonoBehaviour
             limitTime -= Time.deltaTime;
         }
         else{
-            Destroy(transform.gameObject);
+            pv.RPC("DestroyRPC", RpcTarget.AllBuffered);
         }
     }
     
@@ -30,6 +33,9 @@ public class Bullets : MonoBehaviour
         if(  ob != null)
             ob.TakePhysicalDamage(Damage);
 
-        Destroy(transform.gameObject);
+        pv.RPC("DestroyRPC", RpcTarget.AllBuffered);
     }
+
+    [PunRPC]
+    void DestroyRPC() => Destroy(transform.gameObject);
 }

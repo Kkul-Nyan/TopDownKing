@@ -21,6 +21,8 @@ public class PlayerCharactor : MonoBehaviourPunCallbacks
         }
     }
 
+    
+    [PunRPC]
     public void ChooseCharactor(){
         charactorSelectNumber = GameManager.instance.charactorSelectNumber;
         for(int i = 0; i < bodyObject.Length; i++){

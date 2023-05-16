@@ -45,6 +45,10 @@ public class MainMenuController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         Invoke("CheckBasic",1f);
     }
+
+    private void Update() {
+        
+    }
     public void IsStatus(){
         Reset();
         switch (status){
@@ -110,7 +114,7 @@ public class MainMenuController : MonoBehaviour
       
     //1번게임 배틀로얄모드게임씬으로 로드합니다.
     public void OnBattleRoyaleMode(){
-        networkManager.JoinorCreateRoom();
+        networkManager.JoinRandomRoom();
     }
 
     //2번게임 씬 로드합니다.
@@ -154,9 +158,9 @@ public class MainMenuController : MonoBehaviour
     //사운드가 0이되면 스프라이트를 자동으로 무음스프라이트로 교체하고 0이상이되면 다시 유음 스프라이트로 교체합니다.
     public void SoundValueCheck(){
         soundSize = soundSilder.value;
-        soundText.text = Mathf.Round((soundSize * 100)).ToString();
+        soundText.text = Mathf.Ceil((soundSize * 100)).ToString();
         GameManager.instance.soundSize = soundSize;
-        if(soundSize == 0){
+        if(soundSize <= 0){
             GameManager.instance.isMute = true;
             soundImage.sprite = soundSprites[1];
         }
@@ -164,6 +168,8 @@ public class MainMenuController : MonoBehaviour
             GameManager.instance.isMute = false;
             soundImage.sprite = soundSprites[0];
         }
+        GameManager.instance.MuteSound();
+        GameManager.instance.SoundChange();
     }
     //음소거 버튼을 눌렸을때 사운드를 무음으로 만들어줍니다.
     public void OnMuteButton(){

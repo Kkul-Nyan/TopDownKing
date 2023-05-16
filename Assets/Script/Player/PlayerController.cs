@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     int mapSizeX;
     int mapSizeZ;
@@ -15,25 +15,27 @@ public class PlayerController : MonoBehaviour
     Rigidbody rig;
     Vector2 moveVec;
     public Transform shootPosition;
-    PhotonView pv;
-    public GameObject[] bullets;
+    public PhotonView pv;
+    Vector3 curPos;
 
-    private void Awake() {
-        pv = GetComponent<PhotonView>();
-    }
     private void Start() {
         if(pv.IsMine){
             rig = GetComponent<Rigidbody>();
-            Invoke("RandomPosition",0.1f);
+            RandomPosition();
+            StartCoroutine("RandomPlayerPosition");
+            StopCoroutine("RandomPlayerPosition");
         }        
     }
 
     private void LateUpdate() {
-        if(pv.IsMine){
-            Move();
-        }
+        Move(); 
     }
 
+    IEnumerator RandomPlayerPosition(){
+        yield return new WaitForSeconds(3f);
+        RandomPosition();
+    }
+    
     void RandomPosition(){
         mapSizeX = GameManager.instance.mapSizeX;
         mapSizeZ = GameManager.instance.mapSizeZ;
@@ -46,15 +48,18 @@ public class PlayerController : MonoBehaviour
     }
 
     void Move(){
-        Vector3 dir = Vector3.forward * moveVec.y + Vector3.right * moveVec.x;
-        dir *= moveSpeed;
-        dir.y = rig.velocity.y;
-        rig.velocity = dir;
+        if(pv.IsMine){
+            Vector3 dir = Vector3.forward * moveVec.y + Vector3.right * moveVec.x;
+            dir *= moveSpeed;
+            dir.y = rig.velocity.y;
+            rig.velocity = dir;
 
-        if (moveVec != Vector2.zero)
+            if (moveVec != Vector2.zero)
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotationSpeed);
             }
+        }
+       // else transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
     }
 
     public void OnMoveInput(InputAction.CallbackContext context){
@@ -67,11 +72,13 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnAttackInput(InputAction.CallbackContext context){
-        if(context.phase == InputActionPhase.Performed){
-            InvokeRepeating("ShootBullet", 0.1f, 0.1f); 
-        } 
-        else if(context.phase == InputActionPhase.Canceled){
-            CancelInvoke("ShootBullet");
+        if(pv.IsMine){
+            if(context.phase == InputActionPhase.Performed){
+                InvokeRepeating("ShootBullet", 0.1f, 0.1f); 
+            } 
+            else if(context.phase == InputActionPhase.Canceled){
+                CancelInvoke("ShootBullet");
+            }
         }
     }
 
@@ -83,8 +90,16 @@ public class PlayerController : MonoBehaviour
         CancelInvoke("ShootBullet");
     }
     public void ShootBullet(){
-        GameObject bullet = Instantiate(bullets[0], shootPosition.position , shootPosition.rotation);
+        GameObject bullet = PhotonNetwork.Instantiate("Bullet", shootPosition.position , shootPosition.rotation);
     }
-
-   
+    /*
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+        if(stream.IsWriting){
+            stream.SendNext(transform.position);
+        }
+        else{
+            curPos = (Vector3)stream.ReceiveNext();
+        }
+    }
+   */
 }

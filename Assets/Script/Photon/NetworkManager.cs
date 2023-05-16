@@ -20,7 +20,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
+    public void JoinRandomRoom()
+    {
+        PhotonNetwork.JoinRandomRoom();
+    }
 
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log("Join random failed, creating new room.");
+        RoomOptions options = new RoomOptions {MaxPlayers = (byte) 4};
+        PhotonNetwork.CreateRoom(null, options, null);
+    }
+    /*
     public void JoinorCreateRoom(){
         PhotonNetwork.LocalPlayer.NickName = GameManager.instance.userName;
          
@@ -32,6 +43,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom(PhotonNetwork.LocalPlayer.NickName,roomOption, null);
         Debug.Log("랜덤룸 생성 및 접속시동중");
     }
+    */
     //방 접속시 게임1번 씬으로 이동합니다.
     public override void OnJoinedRoom()
     {
@@ -49,4 +61,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene(0);
     }
+
+    
+
+ 
+
+
+
 }

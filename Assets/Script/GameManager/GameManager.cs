@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
         }
         Destroy(this.gameObject);
     }
+    private void Update() {
+        
+    }
 
     // 사운드 크기를 조정합니다.
     public void SoundChange(){
