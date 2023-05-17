@@ -15,7 +15,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.SerializationRate = 30;
     }
 
-    //방참여를 시도합니다.
+   
     public void Connect(){
         PhotonNetwork.ConnectUsingSettings();
     }

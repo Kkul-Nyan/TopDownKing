@@ -19,6 +19,9 @@ public class MapGenerator : MonoBehaviourPunCallbacks
     
     void Start()
     {
+        GameManager.instance.mapTileScale = objectScale;
+        GameManager.instance.mapSizeX = mapSizeX * objectScale;
+        GameManager.instance.mapSizeZ = mapSizeZ * objectScale;
         if(PhotonNetwork.IsMasterClient){
             GenerateMap();
             GenerateEdge();
@@ -30,19 +33,12 @@ public class MapGenerator : MonoBehaviourPunCallbacks
     //맵타일을 제작하는 부분입니다.
     void GenerateMap()
     {
-        Debug.Log("MAP");
-        GameManager.instance.mapTileScale = objectScale;
-        GameManager.instance.mapSizeX = mapSizeX * objectScale;
-        GameManager.instance.mapSizeZ = mapSizeZ * objectScale;
         for (int x = 0; x < mapSizeX; x++)
         {
             for (int z = 0; z < mapSizeZ; z++)
             {
                 Vector3 tilePosition = new Vector3(x * objectScale, positionY, z * objectScale);
                 PhotonNetwork.Instantiate("Maptile", tilePosition, Quaternion.identity);
-                //Renderer renderer = floor.GetComponent<Renderer>();
-                //renderer.material.mainTextureOffset = new Vector2(x * objectScale, z * objectScale);
-                Debug.Log("MAP2");
             }
         }
     }

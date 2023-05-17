@@ -9,6 +9,8 @@ public class PlayerCharactor : MonoBehaviourPunCallbacks
     public int charactorSelectNumber;
     public GameObject[] bodyObject;
     public GameObject[] headObject;
+  
+    
 
     PhotonView pv;
 
@@ -17,13 +19,12 @@ public class PlayerCharactor : MonoBehaviourPunCallbacks
     }
     private void Start() {
         if(pv.IsMine){
-            Invoke("ChooseCharactor",0.1f);
-        }
+            charactorSelectNumber = GameManager.instance.charactorSelectNumber;
+            pv.RPC("ChooseCharactor", RpcTarget.AllBuffered);
+        }     
     }
 
-    
-    [PunRPC]
-    public void ChooseCharactor(){
+    public void SelectCharactor(){
         charactorSelectNumber = GameManager.instance.charactorSelectNumber;
         for(int i = 0; i < bodyObject.Length; i++){
             bodyObject[i].gameObject.SetActive(false);
@@ -31,7 +32,17 @@ public class PlayerCharactor : MonoBehaviourPunCallbacks
         }
         bodyObject[charactorSelectNumber].gameObject.SetActive(true);
         headObject[charactorSelectNumber].gameObject.SetActive(true);
-
-
     }
+
+    
+    [PunRPC]
+    public void ChooseCharactor(){
+        for(int i = 0; i < bodyObject.Length; i++){
+            bodyObject[i].gameObject.SetActive(false);
+            headObject[i].gameObject.SetActive(false);
+        }
+        bodyObject[charactorSelectNumber].gameObject.SetActive(true);
+        headObject[charactorSelectNumber].gameObject.SetActive(true);        
+    }
+
 }

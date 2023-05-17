@@ -144,7 +144,7 @@ public class MainMenuController : MonoBehaviour
     //선택한 캐릭터를 게임매니저에 정보를 넘겨주고, 캐릭터선택캔버스을 꺼주고, 로비캔버스를 열어줍니다.
     public void OnSelectCharactorButton(){
         GameManager.instance.charactorSelectNumber = charactorSelectNumber;
-        game.ChooseCharactor();
+        game.SelectCharactor();
         OnButtonControll(0);
     }
 

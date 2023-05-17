@@ -26,7 +26,7 @@ public class ItemData : ScriptableObject
     public ConsumableItemData consumable;
     public GameObject equipPrefab;
 }
-
+[System.Serializable]
 public class ConsumableItemData
 {
     public ConsumableType type;
