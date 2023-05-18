@@ -5,22 +5,28 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PlayerStatus : MonoBehaviour, IDamagable
+public class PlayerStatus : MonoBehaviourPunCallbacks, IDamagable, IPunObservable
 {
     public Status health;
     public Status mana;
+    public PhotonView pv;
 
     private void Update() {
         statusUpdate();
     }
 
-    void statusUpdate(){
+    
+    public void statusUpdate(){
         CheckisPlayerDead();
 
         mana.Add(mana.regenRate * Time.deltaTime);
-
-        health.uiSlider.value = health.GetPercent();
-        mana.uiSlider.value = mana.GetPercent();
+        health.uiImage.fillAmount = health.GetPercent();
+        mana.uiImage.fillAmount = mana.GetPercent();
+    }
+    [PunRPC]
+    void CheckStatus(){
+        health.uiImage.fillAmount = health.GetPercent();
+        mana.uiImage.fillAmount = mana.GetPercent();
     }
 
     public void CheckisPlayerDead(){
@@ -30,11 +36,15 @@ public class PlayerStatus : MonoBehaviour, IDamagable
     }
     public void TakePhysicalDamage(int amount){
         health.Subtract(amount);
-        //onTakeDamage?.Invoke();
+        pv.RPC("CheckStatus", RpcTarget.AllBuffered);
     }
 
     void Die(){
         Debug.Log( GameManager.instance.userName + "Die");
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+
     }
 
 }
@@ -47,12 +57,13 @@ public class Status
     public float startValue;
     public float regenRate;
     public float decayRate;
-    public Slider uiSlider;
+    public Image uiImage;
 
+    
     public void Add(float amount){
         curValue = Mathf.Min(curValue + amount, maxValue);
     }
-
+    
     public void Subtract(float amount){
         curValue = Mathf.Max(curValue - amount, 0);
     }
