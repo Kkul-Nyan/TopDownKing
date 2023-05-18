@@ -19,8 +19,8 @@ public class PlayerStatus : MonoBehaviour, IDamagable
 
         mana.Add(mana.regenRate * Time.deltaTime);
 
-        health.uiBar.fillAmount = health.GetPercent();
-        mana.uiBar.fillAmount = mana.GetPercent();
+        health.uiSlider.value = health.GetPercent();
+        mana.uiSlider.value = mana.GetPercent();
     }
 
     public void CheckisPlayerDead(){
@@ -47,7 +47,7 @@ public class Status
     public float startValue;
     public float regenRate;
     public float decayRate;
-    public Image uiBar;
+    public Slider uiSlider;
 
     public void Add(float amount){
         curValue = Mathf.Min(curValue + amount, maxValue);
