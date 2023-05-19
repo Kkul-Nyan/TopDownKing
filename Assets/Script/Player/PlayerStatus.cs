@@ -20,8 +20,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks, IDamagable, IPunObservabl
         CheckisPlayerDead();
 
         mana.Add(mana.regenRate * Time.deltaTime);
-        health.uiImage.fillAmount = health.GetPercent();
-        mana.uiImage.fillAmount = mana.GetPercent();
+        CheckStatus();
     }
     [PunRPC]
     void CheckStatus(){

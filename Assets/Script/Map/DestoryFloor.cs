@@ -27,39 +27,34 @@ public class DestoryFloor : MonoBehaviour
         startColor = renderer.material.color;
     }
     private void Update() {
-        ColorChangeFloor();
         RemoveFloor();
     }
 
-    private void OnCollision(Collision other) {
-        if(other.gameObject.CompareTag("Player")){
-            isPlayer = true;
+    private void OnCollisionStay(Collision other) {
+        if(other.transform.CompareTag("Player")){
+            ColorChangeFloor();
         }
     }
 
-    private void OnCollisionExit(Collision other) {
-        if(other.gameObject.CompareTag("Player")){
-            isPlayer = false;
-        }
-    }
-
+    [PunRPC]
     void ColorChangeFloor(){
-        if(isPlayer){
-            if (itime < maxTime)
-            {
-                itime += (float)(Time.deltaTime);
-                float t = itime / maxTime;
-                renderer.material.color = Color.Lerp(startColor, destoryColor, t);
-            }
-            else
-            {
-                renderer.material.color = destoryColor;
-                transform.gameObject.AddComponent<Rigidbody>();
-                isDestory = true;
-            }
+        
+        if (itime < maxTime)
+        {
+            itime += (float)(Time.deltaTime);
+            float t = itime / maxTime;
+            renderer.material.color = Color.Lerp(startColor, destoryColor, t);
         }
+        else
+        {
+            renderer.material.color = destoryColor;
+            transform.gameObject.AddComponent<Rigidbody>();
+            isDestory = true;
+        }
+        
     }
 
+    [PunRPC]
     void RemoveFloor(){
         if(isDestory == true){
             if(destoryTime > 0){

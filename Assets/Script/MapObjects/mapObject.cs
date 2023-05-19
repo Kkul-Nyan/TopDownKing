@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class mapObject : MonoBehaviour, IDamagable
+public class mapObject : MonoBehaviourPunCallbacks, IDamagable
 {
     public PhotonView pv;
     public int maxHealth;

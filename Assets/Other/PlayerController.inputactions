@@ -82,6 +82,17 @@
                 },
                 {
                     "name": "",
+                    "id": "3b72cc58-34f6-40d0-9df8-46360d0f18d8",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d128fb5d-3db1-4907-8bdd-7d9f3dc0f70a",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",

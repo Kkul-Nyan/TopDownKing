@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public PhotonView pv;
     Vector3 curPos;
     Animator anim;
+    bool isShootWeapon = false;
 
     private void Start() {
         anim = GetComponentInChildren<Animator>();
@@ -48,8 +49,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     void Move(){
-        if(pv.IsMine){
-            
+        if(pv.IsMine){    
             Vector3 dir = Vector3.forward * moveVec.y + Vector3.right * moveVec.x;
             dir *= moveSpeed;
             dir.y = rig.velocity.y;
@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotationSpeed);
             }
         }
-       // else transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
     }
 
     public void OnMoveInput(InputAction.CallbackContext context){
@@ -87,24 +86,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnbuttonDown(){
-        InvokeRepeating("ShootBullet", 0.1f, 0.1f);
-    }
+    
 
-    public void OnbuttonUp(){
-        CancelInvoke("ShootBullet");
-    }
     public void ShootBullet(){
         GameObject bullet = PhotonNetwork.Instantiate("Bullet", shootPosition.position , shootPosition.rotation);
     }
-    /*
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
-        if(stream.IsWriting){
-            stream.SendNext(transform.position);
-        }
-        else{
-            curPos = (Vector3)stream.ReceiveNext();
-        }
-    }
-   */
 }
