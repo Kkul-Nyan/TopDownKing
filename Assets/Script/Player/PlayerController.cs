@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public PhotonView pv;
     Vector3 curPos;
     Animator anim;
+
+    public Bullets bullet;
     bool isShootWeapon = false;
 
     private void Start() {
@@ -86,9 +88,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    
-
     public void ShootBullet(){
-        GameObject bullet = PhotonNetwork.Instantiate("Bullet", shootPosition.position , shootPosition.rotation);
+        PhotonNetwork.Instantiate("Bullet" + bullet.bulletID, shootPosition.position , shootPosition.rotation);
+        Debug.Log("Bullet" + bullet.bulletID);
     }
 }

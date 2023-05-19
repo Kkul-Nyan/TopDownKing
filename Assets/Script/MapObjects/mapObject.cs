@@ -12,11 +12,13 @@ public class mapObject : MonoBehaviourPunCallbacks, IDamagable
     Renderer renderer;
     Color startColor;
     public Color destroyColor;
+    DropItem dropItem;
 
  
     private void Start() {
         renderer = GetComponent<Renderer>();
         startColor = renderer.material.color; 
+        dropItem = GetComponent<DropItem>();
     }
 
     private void Update() {
@@ -41,6 +43,7 @@ public class mapObject : MonoBehaviourPunCallbacks, IDamagable
     void CheckDestroy(){
         if( curhealth <= 0){
             pv.RPC("Die", RpcTarget.All);
+            dropItem.Drop();
         }
     }
 

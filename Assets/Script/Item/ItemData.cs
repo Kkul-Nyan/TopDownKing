@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 
 public enum ItemType{
-    Equipable,
+    Bullet,
     Consumable
 }
 
@@ -20,11 +21,9 @@ public class ItemData : ScriptableObject
     public string displayName;
     public string description;
     public ItemType type;
-    public Sprite icon;
-    public GameObject dropPrefab;
+    [PreviewField(100)]public GameObject dropPrefab;
 
     public ConsumableItemData consumable;
-    public GameObject equipPrefab;
 }
 [System.Serializable]
 public class ConsumableItemData

@@ -6,26 +6,21 @@ using Photon.Realtime;
 
 public class Bullets : MonoBehaviourPunCallbacks
 {
+    public int bulletID;
     public PhotonView pv;
     public float speed;
     public int Damage = 50;
+    public int manaDecoy;
     Rigidbody rig;
-    float limitTime = 1;
+    public float limitTime = 3;
     private void Start() {
         rig = GetComponent<Rigidbody>();
         rig.AddForce(transform.forward * speed, ForceMode.Impulse);
-    }
-    private void Update() {
-        selfDestory();
+        Invoke("selfDestroy", limitTime);
     }
 
     void selfDestory(){
-        if(limitTime > 0 ){
-            limitTime -= Time.deltaTime;
-        }
-        else{
-            pv.RPC("DestroyRPC", RpcTarget.AllBuffered);
-        }
+        pv.RPC("DestroyRPC", RpcTarget.AllBuffered);  
     }
     
     private void OnCollisionEnter(Collision other) {
