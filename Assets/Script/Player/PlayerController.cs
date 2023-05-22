@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Bullets bullet;
     PlayerStatus playerStatus;
     bool isShootWeapon = false;
-
-    Canvas endCanvas;
+    
+    
 
     private void Start() {
         anim = GetComponentInChildren<Animator>();

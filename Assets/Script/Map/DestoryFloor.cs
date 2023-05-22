@@ -17,10 +17,6 @@ public class DestoryFloor : MonoBehaviour
     public Color destoryColor;
 
     public PhotonView pv;
-    private void Awake() {
-        
-    }
-
 
     private void Start() {
         renderer = GetComponent<Renderer>();

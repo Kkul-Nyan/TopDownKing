@@ -37,5 +37,4 @@ public class PlayerHud : MonoBehaviourPunCallbacks
             playerNameText.color = Color.red;
         }
     }
-    
 }

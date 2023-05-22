@@ -20,11 +20,6 @@ public class mapObject : MonoBehaviourPunCallbacks, IDamagable
         startColor = renderer.material.color; 
         dropItem = GetComponent<DropItem>();
     }
-
-    private void Update() {
-        
-    }
-
     public void TakePhysicalDamage(int amount){
         curhealth -= amount;
         pv.RPC("HitColor", RpcTarget.All);

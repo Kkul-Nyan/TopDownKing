@@ -32,19 +32,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         RoomOptions options = new RoomOptions {MaxPlayers = (byte) 4};
         PhotonNetwork.CreateRoom(null, options, null);
     }
-    /*
-    public void JoinorCreateRoom(){
-        PhotonNetwork.LocalPlayer.NickName = GameManager.instance.userName;
-         
-        RoomOptions roomOption = new RoomOptions();
-        roomOption.MaxPlayers = 2; //최대 인원수 설정
-        roomOption.IsOpen = true; //방이 열려있는지 닫혀있는지 설정
-        roomOption.IsVisible = false; //비공개 방 여부
-        
-        PhotonNetwork.JoinOrCreateRoom(PhotonNetwork.LocalPlayer.NickName,roomOption, null);
-        Debug.Log("랜덤룸 생성 및 접속시동중");
-    }
-    */
+
     //방 접속시 게임1번 씬으로 이동합니다.
     public override void OnJoinedRoom()
     {
@@ -67,13 +55,5 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void Disconnected(){
         PhotonNetwork.Disconnect();
         Connect();
-        //SceneManager.LoadScene(0);
     }
-
-    
-
- 
-
-
-
 }

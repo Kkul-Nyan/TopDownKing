@@ -6,6 +6,7 @@ using Photon.Realtime;
 
 public class Bullets : MonoBehaviourPunCallbacks
 {
+    
     public int bulletID;
     public PhotonView pv;
     public float speed;
