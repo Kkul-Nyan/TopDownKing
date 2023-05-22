@@ -10,15 +10,19 @@ public class PlayerStatus : MonoBehaviourPunCallbacks, IDamagable, IPunObservabl
     public Status health;
     public Status mana;
     public PhotonView pv;
+    float value;
+    public Canvas endCanvas;
+    public GameObject playerCharactor;
 
     private void Update() {
         statusUpdate();
+        CheckHeight();
     }
 
     
     public void statusUpdate(){
         CheckisPlayerDead();
-
+        
         mana.Add(mana.regenRate * Time.deltaTime);
         CheckStatus();
     }
@@ -37,15 +41,21 @@ public class PlayerStatus : MonoBehaviourPunCallbacks, IDamagable, IPunObservabl
         health.Subtract(amount);
         pv.RPC("CheckStatus", RpcTarget.AllBuffered);
     }
-
     void Die(){
         Debug.Log( GameManager.instance.userName + "Die");
+        endCanvas.gameObject.SetActive(true);
+        playerCharactor.SetActive(false);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
 
     }
 
+    public void CheckHeight(){
+        if(transform.position.y < -5){
+            Die();
+        }
+    }
 }
 
 [System.Serializable]
@@ -57,8 +67,7 @@ public class Status
     public float regenRate;
     public float decayRate;
     public Image uiImage;
-
-    
+   
     public void Add(float amount){
         curValue = Mathf.Min(curValue + amount, maxValue);
     }

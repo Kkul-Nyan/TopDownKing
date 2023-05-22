@@ -21,10 +21,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
     Animator anim;
 
     public Bullets bullet;
+    PlayerStatus playerStatus;
     bool isShootWeapon = false;
+
+    Canvas endCanvas;
 
     private void Start() {
         anim = GetComponentInChildren<Animator>();
+        playerStatus =  GetComponent<PlayerStatus>();
         if(pv.IsMine){
             rig = GetComponent<Rigidbody>();
             RandomPosition();
@@ -89,7 +93,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     public void ShootBullet(){
-        PhotonNetwork.Instantiate("Bullet" + bullet.bulletID, shootPosition.position , shootPosition.rotation);
+        if(playerStatus.mana.curValue >= bullet.manaDecoy){
+            PhotonNetwork.Instantiate("Bullet" + bullet.bulletID, shootPosition.position , shootPosition.rotation);
+            playerStatus.mana.Subtract(bullet.manaDecoy);
+        }
+        
         Debug.Log("Bullet" + bullet.bulletID);
     }
 }

@@ -61,7 +61,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     // 방접속 종료시 메인화면씬으로 전환합니다.
     public override void OnDisconnected(DisconnectCause cause)
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
+    }
+
+    public void Disconnected(){
+        PhotonNetwork.Disconnect();
+        Connect();
+        //SceneManager.LoadScene(0);
     }
 
     

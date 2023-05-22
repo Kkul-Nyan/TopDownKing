@@ -33,7 +33,8 @@ public class DropItem : MonoBehaviourPunCallbacks
             return;
         }
         Bullets bullet = items[dropItemNum].dropPrefab.GetComponent<Bullets>();
-        PhotonNetwork.Instantiate("itemBullet2", transform.position, Quaternion.identity);
+        Vector3 bulletPosition =  transform.position + new Vector3(0, 1, 0);
+        PhotonNetwork.Instantiate("itemBullet2", bulletPosition, Quaternion.identity);
         Debug.Log("itemBullet"+ bullet.bulletID +"Instantiate");
     }
 
@@ -43,9 +44,8 @@ public class DropItem : MonoBehaviourPunCallbacks
             DropConsumableItem();
             return;
         }
-        PhotonNetwork.Instantiate("", transform.position, Quaternion.identity);
+        Potion potion = items[dropItemNum].dropPrefab.GetComponent<Potion>();
+        Vector3 rotation =  new Vector3(-90,0,0);
+        PhotonNetwork.Instantiate("Potion" + potion.potionID, transform.position, Quaternion.Euler(rotation));
     }
-
-
-
 }
