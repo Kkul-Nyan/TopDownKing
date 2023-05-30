@@ -16,27 +16,27 @@ public class OdinDataTable : OdinMenuEditorWindow
     {
         var tree = new OdinMenuTree();
 
-        tree.Add("Create New Enemy", new CreateNewEnemyData());
+        tree.Add("Create New Enemy", new CreateNewItemData());
         tree.AddAllAssetsAtPath("Item", "Assets/Resources", typeof(ItemData));
 
         return tree;
     }
 
-    public class CreateNewEnemyData{
-        public CreateNewEnemyData(){
+    public class CreateNewItemData{
+        public CreateNewItemData(){
             itemData = ScriptableObject.CreateInstance<ItemData>(); 
-            itemData.displayName = "New Enemy Data";
+            itemData.displayName = "New Item Data";
         }
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public ItemData itemData;
 
-        [Button("Add New Enemy")]
+        [Button("Add New Item")]
         private void CreateNewData(){
             AssetDatabase.CreateAsset(itemData, "Assets/Resources/" + itemData.displayName + ".asset");
             AssetDatabase.SaveAssets();
 
             itemData = ScriptableObject.CreateInstance<ItemData>(); 
-            itemData.displayName = "New Enemy Data";
+            itemData.displayName = "New Item Data";
         }
     }
 }
